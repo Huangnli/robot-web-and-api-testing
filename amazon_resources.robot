@@ -14,6 +14,7 @@ Abrir o navegador
     Maximize Browser Window
 
 Fechar o navegador
+    Capture Page Screenshot
     #Versões mais recentes do chromedriver fecha sozinho o browser após a execução.
     Close Browser 
 
@@ -33,3 +34,12 @@ Title Should Be        ${TITULO}
 
 Verificar se aparece a categoria "${CATEGORIA}"
     Element Should Be Visible    //a[contains(@aria-label,'${CATEGORIA}')]
+
+Digitar o nome de produto "${PRODUTO}" no campo de pesquisa
+    Input Text    twotabsearchtextbox    ${PRODUTO}
+
+Clicar no botão de pesquisa
+    Click Element    nav-search-submit-button
+
+Verificar o resultado da pesquisa se está listando o produto "${PRODUTO}"
+    Wait Until Element Is Visible    (//span[contains(.,'${PRODUTO}')])[2]
