@@ -30,7 +30,7 @@ Verificar se aparece a frase "${FRASE}"
     Wait Until Element Is Visible        ${HEADER_ELETRONICOS_TECNOLOGIA}
 
 Verificar se o título da página fica "${TITULO}"
-Title Should Be        ${TITULO}
+    Title Should Be         ${TITULO}
 
 Verificar se aparece a categoria "${CATEGORIA}"
     Element Should Be Visible    //a[contains(@aria-label,'${CATEGORIA}')]
