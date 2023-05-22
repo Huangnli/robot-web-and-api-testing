@@ -39,3 +39,8 @@ Select tests by tag.
 > robot -i `Tag Name` `Test File`
 
 > Example: `robot -i menu amazon_testes.robot`
+
+Set variables in the test data.
+> robot -v `Variable:Name` `Test File`
+
+> Example: `robot -v BROWSER:edge amazon_testes.robot`
