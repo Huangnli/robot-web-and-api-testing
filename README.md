@@ -28,3 +28,14 @@ Command to view the version:
 
 `geckodriver --version`
 > I used versions `113.0.5672.63` and `0.33.0` of ChromeDriver and Geckodriver, respectively.
+
+## Options
+Where to create output files.
+> robot -d `Folder Name` `Test File`
+
+> Example: `robot -d resultados amazon_testes.robot`
+
+Select tests by tag.
+> robot -i `Tag Name` `Test File`
+
+> Example: `robot -i menu amazon_testes.robot`
