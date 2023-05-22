@@ -2,6 +2,7 @@
 Library    SeleniumLibrary
 
 *** Variables ***
+${BROWSER}                          chrome
 ${URL}                              https://www.amazon.com.br
 ${URL_ELETRONICOS}                  https://www.amazon.com.br/gp/browse.html?node=16209062011&ref_=nav_em__electronics_all__0_2_18_2
 ${MENU_TODOS}                       //i[contains(@class,'hm-icon nav-sprite')]
@@ -9,8 +10,9 @@ ${HEADER_ELETRONICOS_TECNOLOGIA}    //h1[contains(.,'Eletrônicos e Tecnologia')
 
 *** Keywords *** 
 Abrir o navegador
+    ${MyDesiredCapabilities}   Create Dictionary   firefox_binary=C:\XXXXX\Firefox.exe
     #Para navegador permaneça aberto utilize options=add_experimental_option("detach", True)
-    Open Browser    browser=chrome    options=add_experimental_option("detach", True)
+    Open Browser    browser=${BROWSER}    options=add_experimental_option("detach", True)
     Maximize Browser Window
 
 Fechar o navegador
