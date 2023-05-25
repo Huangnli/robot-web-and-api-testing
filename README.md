@@ -19,20 +19,11 @@ Command to view the version:
 `chromedriver --version`
 
 `geckodriver --version`
-> I used versions `113.0.5672.63` and `0.33.0` of ChromeDriver and Geckodriver, respectively.
-
-
-# robot-web-testing
-Web Testing with Robot Framework
-
-## Installation of libraries
-`pip install -U robotframework-seleniumlibrary`
-
->`pip list`: To list which packages have been installed and their versions.
+> I used versions `113.0.5672.63` and `0.33.0` of ChromeD
 
 ## Options
 Where to create output files.
-> robot -d `Folder Name` `Test File`
+> robot -d `Folder` `Test File`
 
 > Example: `robot -d resultados amazon_testes.robot`
 
@@ -44,10 +35,21 @@ Select tests by tag.
 Set variables in the test data.
 > robot -v `Variable:Name` `Test File`
 
-> Example: `robot -v BROWSER:edge amazon_testes.robot`
+> Example: `robot -v BROWSER:edge amazon_testes.robot`iver and Geckodriver, respectively.
+
+
+# robot-web-testing
+Web Testing with Robot Framework
+
+## Installation of libraries
+`pip install -U robotframework-seleniumlibrary`
+
+>`pip list`: To list which packages have been installed and their versions.
 
 # robot-api-testing
-API Testing with Robot Framework
+API Testing with Robot Framework.
+Using [ServeRest](https://serverest.dev/) to test API.
+ServeRest is a free REST API that simulates a virtual store in order to serve as material for API testing studies.
 
 ## Installation of libraries
 `pip install -U robotframework-requests`
