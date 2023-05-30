@@ -1,7 +1,8 @@
 *** Settings ***
-Library    RequestsLibrary
-Library    String
-Library    Collections
+Library     RequestsLibrary
+Library     String
+Library     Collections
+
 
 *** Keywords ***
 Criar um usuário novo
@@ -12,15 +13,15 @@ Criar um usuário novo
 
 Cadastrar o usuário criado na ServeRest
     [Arguments]    ${email}    ${status_code_desejado}
-    ${body}        Create Dictionary    
-    ...            nome=Fulano da Silva  
-    ...            email=${EMAIL_TESTE}  
-    ...            password=1234
-    ...            administrador=true
-    Log            ${body}
+    ${body}    Create Dictionary
+    ...        nome=Fulano da Silva
+    ...        email=${EMAIL_TESTE}
+    ...        password=1234
+    ...        administrador=true
+    Log        ${body}
 
     Criar Sessão na ServeRest
-    
+
     ${resposta}    POST On Session
     ...            alias=ServeRest
     ...            url=/usuarios
@@ -28,12 +29,17 @@ Cadastrar o usuário criado na ServeRest
     ...            expected_status=${status_code_desejado}
 
     Log            ${resposta.json()}
-    Set Test Variable    ${RESPOSTA}    ${resposta.json()}
+
+    IF  ${resposta.status_code} == 201
+        Set Test Variable    ${ID_USUARIO}    ${resposta.json()["_id"]}
+    END
+
+    Set Test Variable    ${RESPOSTA}      ${resposta.json()}
 
 Criar Sessão na ServeRest
-    ${headers}         Create Dictionary    
-    ...               accept=application/json  
-    ...               Content-Type=application/json
+    ${headers}    Create Dictionary
+    ...           accept=application/json
+    ...           Content-Type=application/json
     Create Session    alias=ServeRest    url=https://serverest.dev/    headers=${headers}
 
 Conferir se o usuário foi cadastrado corretamente
@@ -43,5 +49,17 @@ Conferir se o usuário foi cadastrado corretamente
 Repetir o cadastrado do usuário
     Cadastrar o usuário criado na ServeRest    email=${EMAIL_TESTE}    status_code_desejado=400
 
- Verificar se a API não permitiu o cadastro repetido
-     Dictionary Should Contain Item    ${RESPOSTA}    message    Este email já está sendo usado
+Verificar se a API não permitiu o cadastro repetido
+    Dictionary Should Contain Item    ${RESPOSTA}    message    Este email já está sendo usado
+
+Consultar os dados do novo usuário
+    ${resposta_consulta}    GET On Session      alias=ServeRest    url=/usuarios/${ID_USUARIO}    expected_status=200
+    Set Test Variable       ${RESP_CONSULTA}    ${resposta_consulta.json()}
+
+Conferir os dados retornados
+    Log    ${RESP_CONSULTA}
+    Dictionary Should Contain Item    ${RESP_CONSULTA}    nome             Fulano da Silva
+    Dictionary Should Contain Item    ${RESP_CONSULTA}    email            ${EMAIL_TESTE}
+    Dictionary Should Contain Item    ${RESP_CONSULTA}    password         1234
+    Dictionary Should Contain Item    ${RESP_CONSULTA}    administrador    true
+    Dictionary Should Contain Item    ${RESP_CONSULTA}    _id              ${ID_USUARIO}
